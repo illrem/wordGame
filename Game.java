@@ -1,22 +1,31 @@
 
-public class Game implements Controller{
+package wordGame;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Game implements Controller{
 	
-	public Game(){
+	public Game() throws IOException{
 		
 		//get the list of words from the file
-		BufferedReader fileReader = new BufferedReader(new FileReader(wordlist.txt));
+		BufferedReader fileReader = new BufferedReader(new FileReader("WordList.txt"));
 		//create a list to store the valid words in
 		List<String> WordList = new ArrayList<String>();
 		//add each line to the arraylist as a new word
-		while((String line = fileReader.readLine()) != null) {
-		    wordlist.add(line);
+		String line;
+		while((line = fileReader.readLine()) != null) {
+		    WordList.add(line);
 		}
 		fileReader.close();
-
 		}
 	
 	
-	public String checkValidity(Play play, char[][] board);
+	public String checkValidity(Play play, char[][] board)
 	{
 		//a string to hold the word being verified
 		String currentword;
@@ -38,9 +47,9 @@ public class Game implements Controller{
 				else if (endofword = false)
 				{
 					endofword = true;
-					if (!wordlist.contains(currentword))
+					if (WordList[].))
 					{
-						System.Out.Print("the word: " + currentword + " is invalid");
+						System.out.print("the word: " + currentword + " is invalid");
 						ValidMove = false;
 					}
 				}				
@@ -61,14 +70,23 @@ public class Game implements Controller{
 				else if (endofword = false)
 				{
 					endofword = true;
-					if (!wordlist.contains(currentword))
+					if (!WordList.contains(currentword))
 					{
-						System.Out.Print("the word: " + currentword + " is invalid");
+						System.out.print("the word: " + currentword + " is invalid");
 						ValidMove = false;
 					}
 				}				
 			}
 		}
+		if (ValidMove)
+		{
+			return "Move is valid";
+		}
+		else
+		{
+			return "Move is Invalid";
+		}
 	}
 
 }
+
