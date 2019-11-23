@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Game implements Controller{
 	
@@ -24,6 +25,26 @@ public abstract class Game implements Controller{
 		fileReader.close();
 		}
 	
+	/**
+	 * Refill the tile rack with randomly selected tiles.
+	 * @return the state of the tile rack
+	 */
+	public String refillRack() {
+		
+		//the entire alphabet and its length
+		String alphabet="abcdefghijklmnopqrstuvwxyz";
+		int noOfLetters=alphabet.length();
+		Random r=new Random();
+		
+		//the array that holds the rack
+		char[] rack=new char[5];
+		
+		//a loop filling the array with random characters from the alphabet
+		for(int i=0;i<6;i++) {
+			rack[i]=alphabet.charAt(r.nextInt(noOfLetters));
+		}
+		return String.valueOf(rack);
+	}
 	
 	public String checkValidity(Play play, char[][] board)
 	{
