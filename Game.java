@@ -108,6 +108,57 @@ public abstract class Game implements Controller{
 			return "Move is Invalid";
 		}
 	}
+	public String play(Play play,char[][] board) {
+		//checking horizontal
+		for (int i = 0;i <board[0].length;i++) {
+			//checking vertical
+			for(int j =0;j<board.length;j++) {
+				//if there are empty tiles in the rack
+				if(   (board[i][j] == ' ')   &&   (board[i][j] == '+')  ) {
+					//getting user input(ONLY ALPHABETS)
+					Scanner scanner = new Scanner (System.in);
+					System.out.println("place tile");
+					String input = scanner.nextLine();
+					//checking users input if its equal to the Alphabets
+					if(input.equals("A") ||
+				       input.equals("B") ||
+				       input.equals("C") ||
+				       input.equals("D") ||
+				       input.equals("E") ||
+				       input.equals("F") ||
+				       input.equals("G") ||
+				       input.equals("H") ||
+				       input.equals("I") ||
+				       input.equals("J") ||
+				       input.equals("K") ||
+				       input.equals("L") ||
+				       input.equals("M") ||
+				       input.equals("N") ||
+				       input.equals("O") ||
+				       input.equals("P") ||
+				       input.equals("Q") ||
+				       input.equals("R") ||
+				       input.equals("S") ||
+				       input.equals("T") ||
+				       input.equals("U") ||
+				       input.equals("V") ||
+				       input.equals("W") ||
+				       input.equals("X") ||
+				       input.equals("Y") ||
+				       input.equals("Z") ) {
+						//if the alphabets are equal.put them in side the empty spaces
+						input += board;
+						
+					}
+					scanner.close();
+				}
+			}
+			
+		}
+		//need to return state of the placed tile (working on it)
+		return "hello";
+		
+	}
 
 }
 
