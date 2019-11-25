@@ -32,8 +32,8 @@ public abstract class Game implements Controller{
 	public String refillRack() {
 		
 		//the entire alphabet and its length
-		String alphabet="abcdefghijklmnopqrstuvwxyz";
-		int noOfLetters=alphabet.length();
+		final String alphabet="abcdefghijklmnopqrstuvwxyz";
+		final int noOfLetters=alphabet.length();
 		Random r=new Random();
 		
 		//the array that holds the rack
