@@ -159,6 +159,51 @@ public abstract class Game implements Controller{
 		return "hello";
 		
 	}
+public String calculateScore(Play play) {
+		
+// Creating a Hashmap to store the letters and their values.
+    HashMap<Character, Integer> pointLetter = new HashMap<Character, Integer>();
+//inputting all the letetr into the hashmap with their values
+               pointLetter.put('A', 1);
+               pointLetter.put('C', 1);
+               pointLetter.put('D', 1);
+               pointLetter.put('E', 1);
+               pointLetter.put('F', 1);
+               pointLetter.put('H', 1);
+               pointLetter.put('I', 1);
+               pointLetter.put('L', 1);
+               pointLetter.put('O', 1);
+               pointLetter.put('P', 1);
+               pointLetter.put('R', 1);
+               pointLetter.put('S', 1);
+               pointLetter.put('T', 1);
+               pointLetter.put('U', 1);
+               pointLetter.put('V', 1);
+               pointLetter.put('W', 1);
 
+               pointLetter.put('K', 2);
+               pointLetter.put('J', 2);
+               pointLetter.put('B', 2);
+               pointLetter.put('G', 2);
+               pointLetter.put('M', 2);
+               pointLetter.put('N', 2);
+
+               pointLetter.put('Q',3);
+               pointLetter.put('X', 3);
+               pointLetter.put('Y',3);
+               pointLetter.put('Z', 3);
+
+}
+
+public static int calculateScore(String gameWord) {
+    int total = 0;
+       for(int i = 0; i <gameWord.length();i++) {
+          //this looks up the current char in the hashmap 'pointLetter' and add it's value to total
+          total += pointLetter.get(gameWord.charAt(i));
+       }
+    return total;
+}
+
+			
 }
 
