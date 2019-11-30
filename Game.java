@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +14,9 @@ import java.util.Scanner;
 
 public abstract class Game implements Controller{
 
-	List<String> WordList;
+	private List<String> WordList;
+	private char[][] gameBoard;
+	private char[] rack;
 
 	public Game() throws IOException{
 
@@ -27,6 +30,12 @@ public abstract class Game implements Controller{
 			WordList.add(line);
 		}
 		fileReader.close();
+		
+		//the array that holds the rack
+		rack=new char[5];
+				
+		//2d array that holds the game board
+		gameBoard=new char[10][10];
 	}
 
 	/**
@@ -40,16 +49,32 @@ public abstract class Game implements Controller{
 		final int noOfLetters=alphabet.length();
 		Random r=new Random();
 
-		//the array that holds the rack
-		char[] rack=new char[5];
-
 		//a loop filling the array with random characters from the alphabet
 		for(int i=0;i<6;i++) {
 			rack[i]=alphabet.charAt(r.nextInt(noOfLetters));
 		}
 		return String.valueOf(rack);
 	}
+	
+	/**
+	 * Return the current state of the game board and the contents of the player's tile rack
+	 * as a String object.
+	 * @return the current state of the game board and the contents of the player's tile rack
+	 * as a String object
+	 */
+	public String gameState() {
+		String lineSeparator = System.lineSeparator();
+		StringBuilder builder = new StringBuilder();
 
+		for (char[] row : gameBoard) {
+		    builder.append(Arrays.toString(row))
+		      .append(lineSeparator);
+		}
+
+		String result = builder.toString();
+		return result + '\n' + "tile rack: "+String.valueOf(rack);
+	}
+	
 	public String checkValidity(Play play, char[][] board)
 	{
 		//a string to hold the word being verified
