@@ -36,6 +36,20 @@ public abstract class Game implements Controller{
 				
 		//2d array that holds the game board
 		gameBoard=new char[10][10];
+		
+		//filling the board 
+		for(int i=0;i<gameBoard.length;i++) {
+			for(int j=0;j<gameBoard[i].length;i++) {
+				if( ((i==4 || i==5) && (j==1 || j==8)) ||
+					((i==3 || i==6) && (j==3 || j==6))) {
+					
+					gameBoard[i][j]='+';
+				}
+				else {
+					gameBoard[i][j]='-';
+				}
+			}
+		}
 	}
 
 	/**
