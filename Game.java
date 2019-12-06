@@ -13,13 +13,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Game implements Controller{
-
+        
+	private HashMap<Character, Integer> pointLetter; 
 	private List<String> WordList;
 	private char[][] gameBoard;
 	private char[] rack;
 
 	public Game() throws IOException{
-
+                //hashmap to store the letters and thier values.
+		pointLetter = new HashMap<Character, Integer>();
 		//get the list of words from the file
 		BufferedReader fileReader = new BufferedReader(new FileReader("WordList.txt"));
 		//create a list to store the valid words in
@@ -209,7 +211,7 @@ public abstract class Game implements Controller{
 
 		// Creating a Hashmap to store the letters and their values.
 		HashMap<Character, Integer> pointLetter = new HashMap<Character, Integer>();
-		//inputting all the letetr into the hashmap with their values
+		//inputting all the letters into the hashmap with their values
 		pointLetter.put('A', 1);
 		pointLetter.put('C', 1);
 		pointLetter.put('D', 1);
@@ -239,18 +241,31 @@ public abstract class Game implements Controller{
 		pointLetter.put('Y',3);
 		pointLetter.put('Z', 3);
 		
-		return null;
-	}
-
-	public static int calculateScore(String gameWord) {
-		int total = 0;
-		for(int i = 0; i <gameWord.length();i++) {
-			//this looks up the current char in the hashmap 'pointLetter' and add it's value to total
-			total += pointLetter.get(gameWord.charAt(i));
-		}
-		return total;
-	}
-
+	//this is where the letters on the rack are stored
+   String letterPositionsInRack = play.letterPositionsInRack();
+   String gameWord = ""; 
+          int total = 0;
+          
+          // going through the 5 letters on the rack
+     for(int i = 0; i <letterPositionsInRack.length();i++) {
+ 
+    	char position = letterPositionsInRack.charAt(i);
+    	 total += pointLetter.get(rack[position]);
+        gameWord= gameWord + "" + rack[position];
+  
+     }   
+     // if the letters are placed on anuy of the following tiles then the player will get double points
+     if(gameBoard[4][1] == '+' || gameBoard[5][1] == '+' || gameBoard[3][3] == '+' || gameBoard[6][3] == '+' ||
+    		 gameBoard[3][6] == '+'|| gameBoard[4][8] == '+'||  gameBoard[5][8] == '+' || gameBoard[6][6] == '+') {
+    	 
+    	 //double points
+    	 
+     }
+     
+  //String returning the points
+     return ("Word: " + gameWord + "  The Word scores: " + total);
+     }
+	
 
 }
 
