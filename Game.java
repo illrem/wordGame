@@ -1,4 +1,3 @@
-
 package wordGame;
 
 import java.io.BufferedReader;
@@ -12,18 +11,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public abstract class Game implements Controller{
-        
+public class Game implements Controller{
+
 	private HashMap<Character, Integer> pointLetter; 
 	private List<String> WordList;
 	private char[][] gameBoard;
 	private char[] rack;
+	private Random r;
 
 	public Game() throws IOException{
-                //hashmap to store the letters and thier values.
+		//hashmap to store the letters and thier values.
 		pointLetter = new HashMap<Character, Integer>();
 		//get the list of words from the file
-		BufferedReader fileReader = new BufferedReader(new FileReader("WordList.txt"));
+		BufferedReader fileReader = new BufferedReader(new FileReader("C://Users//rgold//OneDrive//Documents//Uni work//cs2310//wordGameTest//src//wordGameTest//WordList.txt"));
 		//create a list to store the valid words in
 		WordList = new ArrayList<String>();
 		//add each line to the arraylist as a new word
@@ -32,19 +32,18 @@ public abstract class Game implements Controller{
 			WordList.add(line);
 		}
 		fileReader.close();
+
 		
-		//the array that holds the rack
-		rack=new char[5];
-				
+
 		//2d array that holds the game board
 		gameBoard=new char[10][10];
-		
+
 		//filling the board 
-		for(int i=0;i<gameBoard.length;i++) {
-			for(int j=0;j<gameBoard[i].length;i++) {
+		for(int i=0;i<9;i++) {
+			for(int j=0;j<9;j++) {
 				if( ((i==4 || i==5) && (j==1 || j==8)) ||
-					((i==3 || i==6) && (j==3 || j==6))) {
-					
+						((i==3 || i==6) && (j==3 || j==6))) {
+
 					gameBoard[i][j]='+';
 				}
 				else {
@@ -59,19 +58,20 @@ public abstract class Game implements Controller{
 	 * @return the state of the tile rack
 	 */
 	public String refillRack() {
-
+		//the array that holds the rack
+		rack=new char[5];
 		//the entire alphabet and its length
 		final String alphabet="abcdefghijklmnopqrstuvwxyz";
 		final int noOfLetters=alphabet.length();
-		Random r=new Random();
+		r=new Random(noOfLetters);
 
 		//a loop filling the array with random characters from the alphabet
-		for(int i=0;i<6;i++) {
+		for(int i=0;i<5;i++) {
 			rack[i]=alphabet.charAt(r.nextInt(noOfLetters));
 		}
 		return String.valueOf(rack);
 	}
-	
+
 	/**
 	 * Return the current state of the game board and the contents of the player's tile rack
 	 * as a String object.
@@ -83,14 +83,14 @@ public abstract class Game implements Controller{
 		StringBuilder builder = new StringBuilder();
 
 		for (char[] row : gameBoard) {
-		    builder.append(Arrays.toString(row))
-		      .append(lineSeparator);
+			builder.append(Arrays.toString(row))
+			.append(lineSeparator);
 		}
 
 		String result = builder.toString();
 		return result + '\n' + "tile rack: "+String.valueOf(rack);
 	}
-	
+
 	public String checkValidity(Play play, char[][] board)
 	{
 		//a string to hold the word being verified
@@ -240,32 +240,53 @@ public abstract class Game implements Controller{
 		pointLetter.put('X', 3);
 		pointLetter.put('Y',3);
 		pointLetter.put('Z', 3);
+
+		//this is where the letters on the rack are stored
+		String letterPositionsInRack = play.letterPositionsInRack();
+		int total = 0;
+		String startingCell=play.cell();
+
+
+		char[] arrayForCell=startingCell.toCharArray();
 		
-	//this is where the letters on the rack are stored
-   String letterPositionsInRack = play.letterPositionsInRack();
-   String gameWord = ""; 
-          int total = 0;
-          
-          // going through the 5 letters on the rack
-     for(int i = 0; i <letterPositionsInRack.length();i++) {
- 
-    	char position = letterPositionsInRack.charAt(i);
-    	 total += pointLetter.get(rack[position]);
-        gameWord= gameWord + "" + rack[position];
-  
-     }   
-     // if the letters are placed on anuy of the following tiles then the player will get double points
-     if(gameBoard[4][1] == '+' || gameBoard[5][1] == '+' || gameBoard[3][3] == '+' || gameBoard[6][3] == '+' ||
-    		 gameBoard[3][6] == '+'|| gameBoard[4][8] == '+'||  gameBoard[5][8] == '+' || gameBoard[6][6] == '+') {
-    	 
-    	 //double points
-    	 
-     }
-     
-  //String returning the points
-     return ("Word: " + gameWord + "  The Word scores: " + total);
-     }
-	
+		
+		// going through the 5 letters on the rack
+		for(int i = 0; i <letterPositionsInRack.length();i++) {
+
+			int position = Character.getNumericValue(letterPositionsInRack.charAt(i));
+			char letterInPosition=rack[position];
+
+				if( ((arrayForCell[1]=='E' || arrayForCell[1]=='F') && (arrayForCell[2]=='2' || arrayForCell[2]=='9')) ||
+						((arrayForCell[1]=='D' || arrayForCell[1]=='G') && (arrayForCell[2]=='4' || arrayForCell[2]=='7'))) {
+				
+					
+					//double points
+				total=total+(pointLetter.get(letterInPosition)*2);
+
+			}
+			else {
+				total = total+pointLetter.get(letterInPosition);
+			}
+		}
+
+
+
+		//String returning the points
+		return ("The Word score is : " + total);
+	}
+
+	@Override
+	public String play(Play play) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String checkValidity(Play play) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
 
