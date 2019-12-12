@@ -23,7 +23,7 @@ public class Game implements Controller{
 		//hash-map to store the letters and their values.
 		pointLetter = new HashMap<Character, Integer>();
 		//get the list of words from the file
-		BufferedReader fileReader = new BufferedReader(new FileReader("C://Users//rgold//OneDrive//Documents//Uni work//cs2310//wordGameTest//src//wordGameTest//WordList.txt"));
+		BufferedReader fileReader = new BufferedReader(new FileReader("WordList.txt"));
 		//create a list to store the valid words in
 		WordList = new ArrayList<String>();
 		//add each line to the array-list as a new word
