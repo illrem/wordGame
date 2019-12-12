@@ -16,13 +16,13 @@ import java.util.regex.Pattern;
  */
 public class TUI {
 
-	private Controller controller;  
+	private Game game;  
 	
 	private Scanner stdIn;
 	
-	public TUI(Controller controller) {
+	public TUI(Game game) {
 		
-		this.controller = controller;
+		this.game = game;
 		
 		// Creates a Scanner object for obtaining user input
 		stdIn = new Scanner(System.in);
@@ -49,30 +49,30 @@ public class TUI {
 		String command = stdIn.nextLine().trim();
 		switch (command) {
 		case "1" : // Refill tile rack
-			display(controller.refillRack());
+			display(game.refillRack());
 			break;
 		case "2" : // Display board and tile rack contents
-			display(controller.gameState());
+			display(game.gameState());
 			break;
 		case "3" : // Place tiles on game board...
 			display("Place tiles on game board...");
 			play = getPlay();
 			if (play != null) {
-				display(controller.play(play));
+				display(game.play(play));
 			}
 			break;
 		case "4" : // Calculate score for an planned play
 			display("Calculate score for a play...");
 			play = getPlay();
 			if (play != null) {
-				display(controller.calculateScore(play));
+				display(game.calculateScore(play));
 			}
 			break;
 		case "5" : // Valid a move
 			display("Check validity...");
 			play = getPlay();
 			if (play != null) {
-				display(controller.checkValidity(play));
+				display(game.checkValidity(play));
 			}
 			break;
 		case "6" : // Exits the application
