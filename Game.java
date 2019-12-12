@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+//@author f5 Remi
+
 public class Game implements Controller{
 
 	private HashMap<Character, Integer> pointLetter; 
